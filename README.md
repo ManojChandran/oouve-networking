@@ -1,8 +1,17 @@
 # Production Ready AWS Network
 
-This repository tries to follow the checklist items formulated by gruntworks to have a production ready infrastructure.
+Complete Terraform HCL script to build your VPC infrastructure.
 
-# Networking
+
+> This repository tries to follow the checklist items formulated by gruntworks to have a production ready infrastructure, reference provided at the end.
+
+```
+terraform --version
+Terraform v0.12.2
++ provider.aws v2.35.0
+```
+
+# Checklist of items to have production ready Networking
 ## Set up VPCs
 Don't use the Default VPC, as everything in it is publicly accessible by default. Instead, create one or more custom Virtual Private Clouds (VPC), each with their own IP address range (see VPC and subnet sizing), and deploy all of your apps into those VPCs.
 
@@ -20,3 +29,7 @@ By default, all AWS resources (e.g., EC2 Instances, Load Balancers, RDS DBs, etc
 
 ## Configure DNS using Route 53
 Manage DNS entries using Route 53. You can buy public domain names using the Route 53 Registrar or create custom private domain names, accessible only from within your VPC, using Route 53 Private Hosted Zones.
+
+# Project Reference
+
+Link 1 : https://www.gruntwork.io/devops-checklist/</br>
