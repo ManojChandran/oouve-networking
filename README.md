@@ -30,6 +30,6 @@ By default, all AWS resources (e.g., EC2 Instances, Load Balancers, RDS DBs, etc
 ## Configure DNS using Route 53
 Manage DNS entries using Route 53. You can buy public domain names using the Route 53 Registrar or create custom private domain names, accessible only from within your VPC, using Route 53 Private Hosted Zones.
 
-# Project Reference
+# Reference
 
 Link 1 : https://www.gruntwork.io/devops-checklist/</br>
