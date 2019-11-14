@@ -16,15 +16,16 @@ provider "aws" {
   region = "${var.aws-region}"
 }
 
-# Stores the state file back up in s3 bucket
-# interpolations cannot be used becasue the actvity is done initial stage
-terraform {
-  backend "s3" {
-    bucket = "myterraformstatebackupfile0001"
-    key    = "terraform/terraform.tfstate"
-    region = "us-east-1"
-  }
-}
+## Stores the state file back up in s3 bucket
+## interpolations cannot be used becasue the actvity is done initial stage
+## need to create s3 bucket and folder prior to un using the backend
+#terraform {
+#  backend "s3" {
+#    bucket = "myterraformstatebackupfile0001"
+#    key    = "terraform/terraform.tfstate"
+#    region = "us-east-1"
+#  }
+#}
 
 # Deploy VPC and attach IGW
 module "vpc-igw" {
