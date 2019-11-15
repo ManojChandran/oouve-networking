@@ -11,3 +11,7 @@ output "IGW-id" {
 output "Default-route-table" {
   value = "${module.vpc-igw.default-route-table-id}"
 }
+
+output "Public-Subnet-IDs" {
+  value = "${join(", ", module.public-subnet.public-subnet-ids)}"
+}
