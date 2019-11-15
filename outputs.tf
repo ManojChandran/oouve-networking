@@ -7,3 +7,7 @@ output "VPC-id" {
 output "IGW-id" {
   value = "${module.vpc-igw.igw-id}"
 }
+
+output "Default-route-table" {
+  value = "${module.vpc-igw.default-route-table-id}"
+}

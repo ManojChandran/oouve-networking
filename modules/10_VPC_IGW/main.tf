@@ -16,30 +16,34 @@ variable "vpc-cidr" {}
 
 #-------------control section-----------------------
 # create AWS VPC with specific CIDR
-resource "aws_vpc" "tf-vpc" {
+resource "aws_vpc" "oouve-vpc" {
   cidr_block           = "${var.vpc-cidr}"
   enable_dns_hostnames = true
   enable_dns_support   = true
 
   tags = {
-    name = "tf-vpc"
+    Name = "oouve-vpc"
   }
 }
 
 # create and attach Internet Gateway
-resource "aws_internet_gateway" "tf-internet-gateway" {
-  vpc_id = "${aws_vpc.tf-vpc.id}"
+resource "aws_internet_gateway" "oouve-internet-gateway" {
+  vpc_id = "${aws_vpc.oouve-vpc.id}"
 
   tags = {
-    Name = "tf-internet-gateway"
+    Name = "oouve-internet-gateway"
   }
 }
 
 #-------------output section------------------------
 output "vpc-id" {
-  value = "${aws_vpc.tf-vpc.id}"
+  value = "${aws_vpc.oouve-vpc.id}"
 }
 
 output "igw-id" {
-  value = "${aws_internet_gateway.tf-internet-gateway.id}"
+  value = "${aws_internet_gateway.oouve-internet-gateway.id}"
+}
+
+output "default-route-table-id" {
+  value = "${aws_vpc.oouve-vpc.default_route_table_id}"
 }

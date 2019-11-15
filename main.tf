@@ -21,7 +21,7 @@ provider "aws" {
 # need to create s3 bucket and folder prior to using the backend
 terraform {
   backend "s3" {
-    bucket = "myterraformstatebackupfile0001"
+    bucket = "myterraformstatebackupfile0002"
     key    = "terraform/terraform.tfstate"
     region = "us-east-1"
   }
