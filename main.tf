@@ -33,11 +33,17 @@ module "vpc-igw" {
   vpc-cidr = "${var.vpc-cidr}"
 }
 
-# Deploy VPC and attach IGW
+# Deploy public subnet
 module "public-subnet" {
   source           = "./modules/11_public_subnet"
-  vpc-cidr         = "${var.vpc-cidr}"
   vpc-id           = "${module.vpc-igw.vpc-id}"
   igw-id           = "${module.vpc-igw.igw-id}"
   vpc-public-cidrs = "${var.vpc-public-cidrs}"
+}
+# Deploy private subnet
+module "private-subnet" {
+  source           = "./modules/12_private_subnet"
+  vpc-id           = "${module.vpc-igw.vpc-id}"
+  vpc-private-cidrs = "${var.vpc-private-cidrs}"
+  default-route-table-id = "${module.vpc-igw.default-route-table-id}"
 }

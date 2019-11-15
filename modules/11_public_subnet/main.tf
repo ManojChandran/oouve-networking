@@ -12,7 +12,6 @@
 # limitations under the License.
 #--------------------------------------------------------------------------
 #-------------variable section----------------------
-variable "vpc-cidr" {}
 variable "vpc-id" {}
 variable "igw-id" {}
 variable "vpc-public-cidrs" {}
@@ -64,6 +63,6 @@ output "public-subnet-ids" {
 output "public-route-table" {
   value = "${aws_route_table.oouve-pub-route-table.id}"
 }
-output "public-sunets" {
+output "public-subets" {
   value = "${aws_subnet.oouve-pub-subnet.*.cidr_block}"
 }

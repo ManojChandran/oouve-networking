@@ -15,3 +15,14 @@ output "Default-route-table" {
 output "Public-Subnet-IDs" {
   value = "${join(", ", module.public-subnet.public-subnet-ids)}"
 }
+
+output "Private-Subnet-IDs" {
+  value = "${join(", ", module.private-subnet.private-subnet-ids)}"
+}
+
+output "Private-route-table" {
+  value = "${module.private-subnet.private-route-table}"
+}
+output "Public-route-table" {
+  value = "${module.public-subnet.public-route-table}"
+}

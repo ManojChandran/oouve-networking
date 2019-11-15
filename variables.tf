@@ -21,3 +21,10 @@ variable "vpc-public-cidrs" {
   description = "stores list of public subnet IP's"
   type        = "list"
 }
+variable "default-route-table-id" {
+  description = "stores default route table of VPC"
+}
+variable "vpc-private-cidrs" {
+  description = "stores list of private subnet IP's"
+  type        = "list"
+}
