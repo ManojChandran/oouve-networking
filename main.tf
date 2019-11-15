@@ -47,3 +47,9 @@ module "private-subnet" {
   vpc-private-cidrs      = "${var.vpc-private-cidrs}"
   default-route-table-id = "${module.vpc-igw.default-route-table-id}"
 }
+# Deploy database subnet
+module "db-subnet" {
+  source                 = "./modules/13_db_subnet"
+  vpc-id                 = "${module.vpc-igw.vpc-id}"
+  vpc-db-cidrs           = "${var.vpc-db-cidrs}"
+}

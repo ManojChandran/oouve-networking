@@ -28,3 +28,7 @@ variable "vpc-private-cidrs" {
   description = "stores list of private subnet IP's"
   type        = "list"
 }
+variable "vpc-db-cidrs" {
+  description = "stores list of database subnet IP's"
+  type        = "list"
+}

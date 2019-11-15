@@ -63,6 +63,6 @@ output "public-subnet-ids" {
 output "public-route-table" {
   value = "${aws_route_table.oouve-pub-route-table.id}"
 }
-output "public-subets" {
+output "public-subnets" {
   value = "${aws_subnet.oouve-pub-subnet.*.cidr_block}"
 }

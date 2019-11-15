@@ -13,46 +13,29 @@
 #--------------------------------------------------------------------------
 #-------------variable section----------------------
 variable "vpc-id" {}
-variable "vpc-private-cidrs" {}
-variable "default-route-table-id" {}
+variable "vpc-db-cidrs" {}
 
 #-------------data section--------------------------
 # get availability zone from specified AWS region
 data "aws_availability_zones" "available" {}
 
 #-------------control section-----------------------
-# Private route table
-resource "aws_default_route_table" "oouve-pvt-route-table" {
-  default_route_table_id = "${var.default-route-table-id}"
-}
-
-# create private subnet
-resource "aws_subnet" "oouve-pvt-subnet" {
-  count             = "${length(var.vpc-private-cidrs)}"
+# create databe subnet
+resource "aws_subnet" "oouve-db-subnet" {
+  count             = "${length(var.vpc-db-cidrs)}"
   vpc_id            = "${var.vpc-id}"
-  cidr_block        = "${var.vpc-private-cidrs[count.index]}"
+  cidr_block        = "${var.vpc-db-cidrs[count.index]}"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
-
   tags = {
-    Name = "oouve-pvt-subnet{count.index +1}"
+    Name = "oouve-db-subnet{count.index +1}"
   }
 }
 
-# Associating private subnet route table
-resource "aws_route_table_association" "oouve-pvt-subnet-association" {
-  count          = "${length(var.vpc-private-cidrs)}"
-  subnet_id      = "${aws_subnet.oouve-pvt-subnet.*.id[count.index]}"
-  route_table_id = "${aws_default_route_table.oouve-pvt-route-table.id}"
-
-}
 #-------------output section------------------------
 
-output "private-subnet-ids" {
-  value = "${aws_subnet.oouve-pvt-subnet.*.id}"
+output "database-subnet-ids" {
+  value = "${aws_subnet.oouve-db-subnet.*.id}"
 }
-output "private-route-table" {
-  value = "${aws_default_route_table.oouve-pvt-route-table.id}"
-}
-output "private-subnets" {
-  value = "${aws_subnet.oouve-pvt-subnet.*.cidr_block}"
+output "database-subnets" {
+  value = "${aws_subnet.oouve-db-subnet.*.cidr_block}"
 }
