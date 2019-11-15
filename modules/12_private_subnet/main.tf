@@ -28,10 +28,10 @@ resource "aws_default_route_table" "oouve-pvt-route-table" {
 
 # create private subnet
 resource "aws_subnet" "oouve-pvt-subnet" {
-  count                   = "${length(var.vpc-private-cidrs)}"
-  vpc_id                  = "${var.vpc-id}"
-  cidr_block              = "${var.vpc-private-cidrs[count.index]}"
-  availability_zone       = "${data.aws_availability_zones.available.names[count.index]}"
+  count             = "${length(var.vpc-private-cidrs)}"
+  vpc_id            = "${var.vpc-id}"
+  cidr_block        = "${var.vpc-private-cidrs[count.index]}"
+  availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
 
   tags = {
     Name = "oouve-pvt-subnet{count.index +1}"

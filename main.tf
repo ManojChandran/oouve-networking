@@ -42,8 +42,8 @@ module "public-subnet" {
 }
 # Deploy private subnet
 module "private-subnet" {
-  source           = "./modules/12_private_subnet"
-  vpc-id           = "${module.vpc-igw.vpc-id}"
-  vpc-private-cidrs = "${var.vpc-private-cidrs}"
+  source                 = "./modules/12_private_subnet"
+  vpc-id                 = "${module.vpc-igw.vpc-id}"
+  vpc-private-cidrs      = "${var.vpc-private-cidrs}"
   default-route-table-id = "${module.vpc-igw.default-route-table-id}"
 }
