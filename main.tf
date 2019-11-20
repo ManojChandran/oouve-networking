@@ -40,6 +40,7 @@ module "public-subnet" {
   igw-id           = "${module.vpc-igw.igw-id}"
   vpc-public-cidrs = "${var.vpc-public-cidrs}"
 }
+
 # Deploy private subnet
 module "private-subnet" {
   source                 = "./modules/12_private_subnet"
@@ -47,9 +48,16 @@ module "private-subnet" {
   vpc-private-cidrs      = "${var.vpc-private-cidrs}"
   default-route-table-id = "${module.vpc-igw.default-route-table-id}"
 }
+
 # Deploy database subnet
 module "db-subnet" {
   source                 = "./modules/13_db_subnet"
   vpc-id                 = "${module.vpc-igw.vpc-id}"
   vpc-db-cidrs           = "${var.vpc-db-cidrs}"
+}
+
+# Deploy VPC flow logs
+module "vpc-flow-logs" {
+  source                 = "./modules/14_vpc_flow_logs"
+  vpc-id                 = "${module.vpc-igw.vpc-id}"
 }

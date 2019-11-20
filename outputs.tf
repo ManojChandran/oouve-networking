@@ -31,3 +31,7 @@ output "Private-route-table" {
 output "Public-route-table" {
   value = "${module.public-subnet.public-route-table}"
 }
+
+output "VPC-flowlogs-id" {
+  value = "${module.vpc-flow-logs.flowlogs-id}"
+}

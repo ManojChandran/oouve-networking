@@ -4,9 +4,9 @@ variable "aws-region" {
   description = "stored aws region data"
 }
 
-variable "env" {
-  description = "env: prod or test or dev"
-}
+#variable "env" {
+#  description = "env: prod or test or dev"
+#}
 
 variable "vpc-cidr" {
   description = "stores ip cidr for the VPC"
