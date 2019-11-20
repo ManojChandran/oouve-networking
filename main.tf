@@ -61,3 +61,10 @@ module "vpc-flow-logs" {
   source                 = "./modules/14_vpc_flow_logs"
   vpc-id                 = "${module.vpc-igw.vpc-id}"
 }
+
+# Deploy NACL settings
+module "vpc-nacl" {
+  source                 = "./modules/15_nacl"
+  vpc-id                 = "${module.vpc-igw.vpc-id}"
+  vpc-cidr               = "${var.vpc-cidr}"
+}
