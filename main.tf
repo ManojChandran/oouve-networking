@@ -51,20 +51,13 @@ module "private-subnet" {
 
 # Deploy database subnet
 module "db-subnet" {
-  source                 = "./modules/13_db_subnet"
-  vpc-id                 = "${module.vpc-igw.vpc-id}"
-  vpc-db-cidrs           = "${var.vpc-db-cidrs}"
+  source       = "./modules/13_db_subnet"
+  vpc-id       = "${module.vpc-igw.vpc-id}"
+  vpc-db-cidrs = "${var.vpc-db-cidrs}"
 }
 
 # Deploy VPC flow logs
 module "vpc-flow-logs" {
-  source                 = "./modules/14_vpc_flow_logs"
-  vpc-id                 = "${module.vpc-igw.vpc-id}"
-}
-
-# Deploy NACL settings
-module "vpc-nacl" {
-  source                 = "./modules/15_nacl"
-  vpc-id                 = "${module.vpc-igw.vpc-id}"
-  vpc-cidr               = "${var.vpc-cidr}"
+  source = "./modules/14_vpc_flow_logs"
+  vpc-id = "${module.vpc-igw.vpc-id}"
 }
