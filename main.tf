@@ -61,3 +61,9 @@ module "vpc-flow-logs" {
   source = "./modules/14_vpc_flow_logs"
   vpc-id = "${module.vpc-igw.vpc-id}"
 }
+
+# Deploy security group
+module ""{
+  source = "./modules/15_security_group"
+  vpc-id = "${module.vpc-igw.vpc-id}"
+}
