@@ -22,8 +22,9 @@ Verify installation by version check:
 
 ```
 $ terraform --version
-Terraform v0.12.2
-+ provider.aws v2.35.0
+Terraform v0.15.3
+on linux_amd64
++ provider registry.terraform.io/hashicorp/aws v3.42.0
 ```
 
 ## Set AWS account
