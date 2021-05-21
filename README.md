@@ -1,6 +1,6 @@
 # Production Ready AWS Network
 
-Complete Terraform HCL script to build your VPC infrastructure.
+This repository is a HCL code for implemenatation of three tier VPC network. Terraform version is details are mentioned below in the istallation section.
 
 
 > This repository tries to follow the checklist items formulated by gruntworks to have a production ready infrastructure, reference provided at the end.
@@ -37,17 +37,17 @@ The following examples show how you configure the environment variables.
 
 Linux, OS X, or Unix
 
-$ export AWS_ACCESS_KEY_ID=YOUR_AKID
-$ export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY
-$ export AWS_SESSION_TOKEN=TOKEN
-$ export AWS_REGION=us-east-1
+$ export AWS_ACCESS_KEY_ID=YOUR_AKID</br>
+$ export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY</br>
+$ export AWS_SESSION_TOKEN=TOKEN</br>
+$ export AWS_REGION=us-east-1</br>
 
 Windows
 
-C:> set AWS_ACCESS_KEY_ID=YOUR_AKID
-C:> set AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY
-C:> set AWS_SESSION_TOKEN=TOKEN
-C:> set AWS_REGION=us-east-1
+C:> set AWS_ACCESS_KEY_ID=YOUR_AKID</br>
+C:> set AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY</br>
+C:> set AWS_SESSION_TOKEN=TOKEN</br>
+C:> set AWS_REGION=us-east-1</br>
 
 ## Run
 Navigate in to our terraform project directory, follow the below commands.
