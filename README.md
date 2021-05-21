@@ -1,6 +1,6 @@
-# Production Ready AWS Network
+# AWS 3 Tier VPC network
 
-This repository is a HCL code for implemenatation of three tier VPC network. Terraform version is details are mentioned below in the istallation section.
+This repository is a HCL code for implemenatation of three tier VPC network. Terraform version details are mentioned below in the istallation section.
 
 
 > This repository tries to follow the checklist items formulated by gruntworks to have a production ready infrastructure, reference provided at the end.
@@ -49,8 +49,15 @@ C:> set AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY</br>
 C:> set AWS_SESSION_TOKEN=TOKEN</br>
 C:> set AWS_REGION=us-east-1</br>
 
+## CLONE 
+
+clone the repo, using git command.
+```
+$ git clone https://github.com/ManojChandran/oouve-networking.git
+```
+
 ## Run
-Navigate in to our terraform project directory, follow the below commands.
+Navigate in to our project directory, follow the below commands.
 ```
 $ terraform init
 $ terrafrom plan 
