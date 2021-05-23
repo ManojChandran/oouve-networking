@@ -37,18 +37,21 @@ The following examples show how you configure the environment variables.
 
 Linux, OS X, or Unix
 
+```
 $ export AWS_ACCESS_KEY_ID=YOUR_AKID</br>
 $ export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY</br>
 $ export AWS_SESSION_TOKEN=TOKEN</br>
 $ export AWS_REGION=us-east-1</br>
+```
 
 Windows
 
-C:> set AWS_ACCESS_KEY_ID=YOUR_AKID</br>
-C:> set AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY</br>
-C:> set AWS_SESSION_TOKEN=TOKEN</br>
-C:> set AWS_REGION=us-east-1</br>
-
+```
+C:\> set AWS_ACCESS_KEY_ID=YOUR_AKID</br>
+C:\> set AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY</br>
+C:\> set AWS_SESSION_TOKEN=TOKEN</br>
+C:\> set AWS_REGION=us-east-1</br>
+```
 ## CLONE 
 
 clone the repo, using git command.
@@ -63,6 +66,8 @@ $ terraform init
 $ terrafrom plan 
 $ terraform apply
 ```
+> Refer "variable.tf" file in root directory for default values of VPC.
+
 # Checklist of items to have production ready Networking
 ## Set up VPCs
 Don't use the Default VPC, as everything in it is publicly accessible by default. Instead, create one or more custom Virtual Private Clouds (VPC), each with their own IP address range (see VPC and subnet sizing), and deploy all of your apps into those VPCs.

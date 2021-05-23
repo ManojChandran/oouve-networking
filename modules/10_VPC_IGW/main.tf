@@ -18,8 +18,8 @@ variable "vpc-cidr" {}
 # create AWS VPC with specific CIDR
 resource "aws_vpc" "oouve-vpc" {
   cidr_block           = "${var.vpc-cidr}"
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+#  enable_dns_hostnames = true
+#  enable_dns_support   = true
 
   tags = {
     Name = "oouve-vpc"

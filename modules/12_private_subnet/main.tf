@@ -22,8 +22,11 @@ data "aws_availability_zones" "available" {}
 
 #-------------control section-----------------------
 # Private route table
-resource "aws_default_route_table" "oouve-pvt-route-table" {
-  default_route_table_id = "${var.default-route-table-id}"
+resource "aws_route_table" "oouve-pvt-route-table" {
+  vpc_id            = "${var.vpc-id}"
+  tags = {
+    Name = "oouve-pvt-route-table"
+  }
 }
 
 # create private subnet
@@ -42,8 +45,7 @@ resource "aws_subnet" "oouve-pvt-subnet" {
 resource "aws_route_table_association" "oouve-pvt-subnet-association" {
   count          = "${length(var.vpc-private-cidrs)}"
   subnet_id      = "${aws_subnet.oouve-pvt-subnet.*.id[count.index]}"
-  route_table_id = "${aws_default_route_table.oouve-pvt-route-table.id}"
-
+  route_table_id = "${aws_route_table.oouve-pvt-route-table.id}"
 }
 #-------------output section------------------------
 
@@ -51,7 +53,7 @@ output "private-subnet-ids" {
   value = "${aws_subnet.oouve-pvt-subnet.*.id}"
 }
 output "private-route-table" {
-  value = "${aws_default_route_table.oouve-pvt-route-table.id}"
+  value = "${aws_route_table.oouve-pvt-route-table.id}"
 }
 output "private-subnets" {
   value = "${aws_subnet.oouve-pvt-subnet.*.cidr_block}"

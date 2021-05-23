@@ -24,15 +24,16 @@ variable "igw-id" {
 variable "vpc-public-cidrs" {
   description = "stores list of public subnet IP's"
   type        = list(string)
-  default = ["10.0.0.0/28"]
+  default = ["10.0.0.0/28", "10.0.0.32/28"]
 }
 variable "default-route-table-id" {
   description = "stores default route table of VPC"
+  default = " "
 }
 variable "vpc-private-cidrs" {
   description = "stores list of private subnet IP's"
   type        = list(string)
-  default = ["10.0.0.16/28"]
+  default = ["10.0.0.16/28", "10.0.0.48/28"]
 }
 variable "vpc-db-cidrs" {
   description = "stores list of database subnet IP's"
