@@ -2,9 +2,6 @@
 
 This repository is a HCL code for implemenatation of three tier VPC network. Terraform version details are mentioned below in the istallation section.
 
-
-> This repository tries to follow the checklist items formulated by gruntworks to have a production ready infrastructure, reference provided at the end.
-
 # RUN Terraform
 
 ## Instalation  
@@ -69,6 +66,9 @@ $ terraform apply
 > Refer "variable.tf" file in root directory for default values of VPC.
 
 # Checklist of items to have production ready Networking
+
+> This repository tries to follow the checklist items formulated by gruntworks to have a production ready infrastructure, reference provided at the end.
+
 ## Set up VPCs
 Don't use the Default VPC, as everything in it is publicly accessible by default. Instead, create one or more custom Virtual Private Clouds (VPC), each with their own IP address range (see VPC and subnet sizing), and deploy all of your apps into those VPCs.
 
