@@ -35,3 +35,11 @@ output "Private-Subnet-IDs" {
 output "VPC-flowlogs-id" {
   value = "${module.vpc-flow-logs.flowlogs-id}"
 }
+
+output "Public-nat-IDs" {
+  value = "${join(", ", module.nat-gateway.public-nat-ids)}"
+}
+
+#output "Public-nat-eips" {
+#  value = "${join(", ", module.nat-eip.public-eip-ids)}"
+#}

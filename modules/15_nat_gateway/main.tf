@@ -1,4 +1,4 @@
-#-----------------------15_security_group/main.tf---------------------------
+#-----------------------15_nat_gateway/main.tf---------------------------
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -12,12 +12,32 @@
 # limitations under the License.
 #--------------------------------------------------------------------------
 #-------------variable section----------------------
-variable "vpc-id" {}
+#variable "vpc-id" {}
+ variable "public-subnet-ids" {}
 
 #-------------data section--------------------------
 
 #-------------control section-----------------------
-resource "aws_security_group" "oouve-public-sg" {
+resource "aws_eip" "oouve-nat-ip" {
+  count    = "${length(var.public-subnet-ids)}"
+  vpc      = true
 
+  tags = {
+    "Name" = "oouve-nat-eip"
+  }
 }
+
+resource "aws_nat_gateway" "oouve-nat-gateway" {
+  count          = "${length(var.public-subnet-ids)}"
+  allocation_id  = "${aws_eip.oouve-nat-ip.*.id[count.index]}"  
+  subnet_id      = "${var.public-subnet-ids[count.index]}"    
+}
+
 #-------------output section------------------------
+output "public-nat-ids" {
+  value = "${aws_nat_gateway.oouve-nat-gateway.*.id}"
+}
+
+output "public-eip-ids" {
+  value = "${aws_eip.oouve-nat-ip.*.id}"
+}

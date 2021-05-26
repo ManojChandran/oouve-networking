@@ -35,19 +35,19 @@ The following examples show how you configure the environment variables.
 Linux, OS X, or Unix
 
 ```
-$ export AWS_ACCESS_KEY_ID=YOUR_AKID</br>
-$ export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY</br>
-$ export AWS_SESSION_TOKEN=TOKEN</br>
-$ export AWS_REGION=us-east-1</br>
+$ export AWS_ACCESS_KEY_ID=YOUR_AKID
+$ export AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY
+$ export AWS_SESSION_TOKEN=TOKEN
+$ export AWS_REGION=us-east-1
 ```
 
 Windows
 
 ```
-C:\> set AWS_ACCESS_KEY_ID=YOUR_AKID</br>
-C:\> set AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY</br>
-C:\> set AWS_SESSION_TOKEN=TOKEN</br>
-C:\> set AWS_REGION=us-east-1</br>
+C:\> set AWS_ACCESS_KEY_ID=YOUR_AKID
+C:\> set AWS_SECRET_ACCESS_KEY=YOUR_SECRET_KEY
+C:\> set AWS_SESSION_TOKEN=TOKEN
+C:\> set AWS_REGION=us-east-1
 ```
 ## CLONE 
 

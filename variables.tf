@@ -40,3 +40,15 @@ variable "vpc-db-cidrs" {
   type        = list(string)
   default = ["10.0.0.32/28"]
 }
+
+variable "public-subnet-ids" {
+  description = "stores list of subnet ids"
+  type        = list(string)
+  default     = []
+}
+
+variable "public-eip-ids" {
+  description = "stores list of nat ips"
+  type        = list(string)
+  default     = []
+}
