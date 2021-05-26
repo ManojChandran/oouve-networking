@@ -24,13 +24,13 @@ output "Private-Subnet-IDs" {
 #  value = "${join(", ", module.db-subnet.database-subnet-ids)}"
 #}
 #
-#output "Private-route-table" {
-#  value = "${module.private-subnet.private-route-table}"
-#}
-#
-#output "Public-route-table" {
-#  value = "${module.public-subnet.public-route-table}"
-#}
+output "Private-route-table" {
+  value = "${module.private-subnet.private-route-table}"
+}
+
+output "Public-route-table" {
+  value = "${module.public-subnet.public-route-table}"
+}
 
 output "VPC-flowlogs-id" {
   value = "${module.vpc-flow-logs.flowlogs-id}"
