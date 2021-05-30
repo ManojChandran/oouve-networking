@@ -2,6 +2,9 @@
 
 This repository is a HCL code for implemenatation of three tier VPC network. Terraform version details are mentioned below in the istallation section.
 
+![Design](./images/Architecture_layout.png?raw=true "Title")</br>
+
+
 # RUN Terraform
 
 ## Instalation  
