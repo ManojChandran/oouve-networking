@@ -31,6 +31,14 @@ resource "aws_nat_gateway" "oouve-nat-gateway" {
   count          = "${length(var.public-subnet-ids)}"
   allocation_id  = "${aws_eip.oouve-nat-ip.*.id[count.index]}"  
   subnet_id      = "${var.public-subnet-ids[count.index]}"    
+
+  depends_on = [
+    aws_eip.oouve-nat-ip,
+  ]
+  
+  tags = {
+    Name = "oouve-nat-gateway"
+  }
 }
 
 #-------------output section------------------------
