@@ -1,4 +1,4 @@
-#-----------------------15_nat_gateway/main.tf---------------------------
+#-----------------------17_elb_public/main.tf---------------------------
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -17,34 +17,38 @@ variable "public-subnet-ids" {}
 #-------------data section--------------------------
 
 #-------------control section-----------------------
-resource "aws_eip" "oouve-nat-ip" {
-  count    = "${length(var.public-subnet-ids)}"
-  vpc      = true
+#resource "aws_s3_bucket" "oouve-lb-logs" {
+#  bucket = "myterraformstatebackupfile0002"
+#  acl    = "private"
+#
+#  tags = {
+#    Name        = "oouve-lb-logs"
+#  }
+#}
+
+resource "aws_lb" "oouve-pub-lb" {
+  name               = "oouve-pub-lb"
+  internal           = false
+  load_balancer_type = "application"
+#  security_groups    = [aws_security_group.lb_sg.id]
+  subnets            = "${var.public-subnet-ids}"
+  enable_deletion_protection = false
+
+#  access_logs {
+#    bucket  = aws_s3_bucket.oouve-lb-logs.bucket
+#    prefix  = "oouve-pub-lb"
+#    enabled = true
+#  }
+#
+#  depends_on = [
+#    aws_s3_bucket.oouve-lb-logs,
+#  ]
 
   tags = {
-    "Name" = "oouve-nat-eip"
+    Environment = "oouve-pub-lb"
   }
 }
-
-resource "aws_nat_gateway" "oouve-nat-gateway" {
-  count          = "${length(var.public-subnet-ids)}"
-  allocation_id  = "${aws_eip.oouve-nat-ip.*.id[count.index]}"  
-  subnet_id      = "${var.public-subnet-ids[count.index]}"    
-
-  depends_on = [
-    aws_eip.oouve-nat-ip,
-  ]
-  
-  tags = {
-    Name = "oouve-nat-gateway"
-  }
-}
-
 #-------------output section------------------------
-output "public-nat-ids" {
-  value = "${aws_nat_gateway.oouve-nat-gateway.*.id}"
-}
-
-output "public-eip-ids" {
-  value = "${aws_eip.oouve-nat-ip.*.id}"
+output "public-lb-id" {
+  value = "${aws_lb.oouve-pub-lb.id}"
 }

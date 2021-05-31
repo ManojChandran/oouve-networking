@@ -79,3 +79,9 @@ module "nat-gateway"{
   source            = "./modules/15_nat_gateway"
   public-subnet-ids = "${module.public-subnet.public-subnet-ids}"
 }
+
+# Deploy ELB
+module "lb-public" {
+  source            = "./modules/17_elb_public"  
+  public-subnet-ids = "${module.public-subnet.public-subnet-ids}"
+}
