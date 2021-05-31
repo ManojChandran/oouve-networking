@@ -15,9 +15,21 @@
 variable "vpc-id" {}
 
 #-------------data section--------------------------
-
+data "aws_network_acls" "example" {
+  vpc_id            = "${var.vpc-id}"
+  tags = {
+    Name = "oouve-main-nacl"
+  }
+}
 #-------------control section-----------------------
-resource "aws_network_acl" "oouve-public-sg" {
+resource "aws_network_acl" "oouve-pvt-nacl" {
+  vpc_id            = "${var.vpc-id}"
 
+  tags = {
+    Name = "oouve-pvt-nacl"
+  }
 }
 #-------------output section------------------------
+output "example" {
+  value = data.aws_network_acls.example.ids
+}

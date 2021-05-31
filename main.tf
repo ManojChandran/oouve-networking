@@ -80,6 +80,12 @@ module "nat-gateway"{
   public-subnet-ids = "${module.public-subnet.public-subnet-ids}"
 }
 
+# Deploy NACL 
+module "network-acl"{
+  source            = "./modules/16_network_acl"
+  vpc-id            = "${module.vpc-igw.vpc-id}"
+}
+
 # Deploy ELB public
 module "lb-public" {
   source            = "./modules/17_lb_public"  
@@ -88,6 +94,6 @@ module "lb-public" {
 
 # Deploy ELB private
 module "lb-private" {
-  source            = "./modules/18_lb_private"  
+  source             = "./modules/18_lb_private"  
   private-subnet-ids = "${module.private-subnet.private-subnet-ids}"
 }

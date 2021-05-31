@@ -50,3 +50,7 @@ output "Private-lb-id" {
 #output "Public-nat-eips" {
 #  value = "${join(", ", module.nat-eip.public-eip-ids)}"
 #}
+
+output "Default-nacl" {
+  value = "${module.network-acl.example}"
+}
