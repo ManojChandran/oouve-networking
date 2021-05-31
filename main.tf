@@ -80,8 +80,14 @@ module "nat-gateway"{
   public-subnet-ids = "${module.public-subnet.public-subnet-ids}"
 }
 
-# Deploy ELB
+# Deploy ELB public
 module "lb-public" {
-  source            = "./modules/17_elb_public"  
+  source            = "./modules/17_lb_public"  
   public-subnet-ids = "${module.public-subnet.public-subnet-ids}"
+}
+
+# Deploy ELB private
+module "lb-private" {
+  source            = "./modules/18_lb_private"  
+  private-subnet-ids = "${module.private-subnet.private-subnet-ids}"
 }

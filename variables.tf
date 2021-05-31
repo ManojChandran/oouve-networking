@@ -47,6 +47,12 @@ variable "public-subnet-ids" {
   default     = []
 }
 
+variable "private-subnet-ids" {
+  description = "stores list of subnet ids"
+  type        = list(string)
+  default     = []
+}
+
 variable "public-eip-ids" {
   description = "stores list of nat ips"
   type        = list(string)

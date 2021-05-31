@@ -43,6 +43,10 @@ output "Public-nat-IDs" {
 output "Public-lb-id" {
   value = "${module.lb-public.public-lb-id}"
 }
+
+output "Private-lb-id" {
+  value = "${module.lb-private.private-lb-id}"
+}
 #output "Public-nat-eips" {
 #  value = "${join(", ", module.nat-eip.public-eip-ids)}"
 #}
