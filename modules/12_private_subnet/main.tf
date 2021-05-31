@@ -37,7 +37,7 @@ resource "aws_subnet" "oouve-pvt-subnet" {
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
 
   tags = {
-    Name = "oouve-pvt-subnet{count.index +1}"
+    Name = "oouve-pvt-subnet"
   }
 }
 
