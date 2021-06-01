@@ -54,3 +54,23 @@ output "Private-lb-id" {
 output "Default-nacl" {
   value = "${module.network-acl.example}"
 }
+
+output "security-group-lb-pub" {
+  value = "${module.security-group.security-group-lb-pub}"
+}
+
+output "security-group-lb-pvt" {
+  value = "${module.security-group.security-group-lb-pvt}"
+}
+
+output "security-group-pub" {
+  value = "${module.security-group.security-group-pub}"
+}
+
+output "security-group-pvt" {
+  value = "${module.security-group.security-group-pvt}"
+}
+
+output "security-group-db" {
+  value = "${module.security-group.security-group-db}"
+}

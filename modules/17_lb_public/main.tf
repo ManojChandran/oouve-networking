@@ -13,6 +13,7 @@
 #--------------------------------------------------------------------------
 #-------------variable section----------------------
 variable "public-subnet-ids" {}
+variable "sg-public-lb-id" {}
 
 #-------------data section--------------------------
 
@@ -30,7 +31,7 @@ resource "aws_lb" "oouve-pub-lb" {
   name               = "oouve-pub-lb"
   internal           = false
   load_balancer_type = "application"
-#  security_groups    = [aws_security_group.lb_sg.id]
+  security_groups    = ["${var.sg-public-lb-id}"]
   subnets            = "${var.public-subnet-ids}"
   enable_deletion_protection = false
 

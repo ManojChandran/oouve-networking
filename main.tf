@@ -61,12 +61,11 @@ module "private-subnet" {
   default-route-table-id = "${module.vpc-igw.default-route-table-id}"
 }
 
-## Deploy database subnet
-#module "db-subnet" {
-#  source       = "./modules/13_db_subnet"
-#  vpc-id       = "${module.vpc-igw.vpc-id}"
-#  vpc-db-cidrs = "${var.vpc-db-cidrs}"
-#}
+## Deploy security groups
+module "security-group" {
+  source          = "./modules/13_security_groups"
+  vpc-id          = "${module.vpc-igw.vpc-id}"
+}
 
 # Deploy VPC flow logs
 module "vpc-flow-logs" {
@@ -86,14 +85,16 @@ module "network-acl"{
   vpc-id            = "${module.vpc-igw.vpc-id}"
 }
 
-# Deploy ELB public
+# Deploy LB public
 module "lb-public" {
   source            = "./modules/17_lb_public"  
   public-subnet-ids = "${module.public-subnet.public-subnet-ids}"
+  sg-public-lb-id   = "${module.security-group.security-group-lb-pub}"
 }
 
-# Deploy ELB private
+# Deploy LB private
 module "lb-private" {
   source             = "./modules/18_lb_private"  
   private-subnet-ids = "${module.private-subnet.private-subnet-ids}"
+  sg-private-lb-id    = "${module.security-group.security-group-lb-pvt}"
 }

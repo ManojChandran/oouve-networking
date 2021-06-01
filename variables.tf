@@ -58,3 +58,28 @@ variable "public-eip-ids" {
   type        = list(string)
   default     = []
 }
+
+variable "sg-public-lb-id" {
+  description = "stores security group id"
+  default = " "
+}
+
+variable "sg-private-lb-id" {
+  description = "stores security group id"
+  default = " "
+}
+
+variable "sg-public-subnet-id" {
+  description = "stores security group id"
+  default = " "
+}
+
+variable "sg-private-subnet-id" {
+  description = "stores security group id"
+  default = " "
+}
+
+variable "sg-database-id" {
+  description = "stores security group id"
+  default = " "
+}
