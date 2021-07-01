@@ -94,3 +94,8 @@ variable "sg-database-id" {
   description = "stores security group id"
   default = " "
 }
+
+variable "domain-name" {
+  description = "store public domain name you purchased"
+  default = "oouve.com"
+}

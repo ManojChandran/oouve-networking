@@ -13,24 +13,24 @@
 #--------------------------------------------------------------------------
 
 terraform {
-# To prevent automatic upgrades to new major versions 
-# that may contain breaking changes
-#--------------------------------------------------------------------------
+  # To prevent automatic upgrades to new major versions 
+  # that may contain breaking changes
+  #--------------------------------------------------------------------------
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 3.0"
     }
   }
-## Stores the state file back up in s3 bucket
-## interpolations cannot be used becasue the actvity is done initial stage
-## need to create s3 bucket and folder prior to using the backend
-#--------------------------------------------------------------------------
-#  backend "s3" {
-#    bucket = "myterraformstatebackupfile0002"
-#    key    = "terraform/terraform.tfstate"
-#    region = "us-east-1"
-#  }
+  ## Stores the state file back up in s3 bucket
+  ## interpolations cannot be used becasue the actvity is done initial stage
+  ## need to create s3 bucket and folder prior to using the backend
+  #--------------------------------------------------------------------------
+  #backend "s3" {
+  #  bucket = "myterraformstatebackupfile0002"
+  #  key    = "terraform/terraform.tfstate"
+  #  region = "us-east-1"
+  #}
 }
 
 provider "aws" {
@@ -97,4 +97,10 @@ module "lb-private" {
   source             = "./modules/18_lb_private"  
   private-subnet-ids = "${module.private-subnet.private-subnet-ids}"
   sg-private-lb-id    = "${module.security-group.security-group-lb-pvt}"
+}
+
+# Deploy Route53
+module "route-53" {
+  source             = "./modules/20_route_53"
+  domain-name = "${var.domain-name}"
 }

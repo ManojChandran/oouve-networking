@@ -68,6 +68,27 @@ $ terraform apply
 ```
 > Refer "variable.tf" file in root directory for default values of VPC.
 
+# Configuring your infrastructure
+
+## Set your CIDR
+
+Open "variables.tf" and update CIDR.
+```go
+variable "vpc-cidr" {
+  description = "stores ip cidr for the VPC"
+  default = "10.0.0.0/26"
+}
+```
+## Set your Domain
+
+Open "variables.tf" and update domain.
+```go
+variable "domain-name" {
+  description = "store public domain name you purchased"
+  default = "oouve.com"
+}
+```
+
 # Checklist of items to have production ready Networking
 
 > This repository tries to follow the checklist items formulated by gruntworks to have a production ready infrastructure, reference provided at the end.

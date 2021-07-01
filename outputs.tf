@@ -86,3 +86,7 @@ output "security-group-pvt" {
 output "security-group-db" {
   value = "${module.security-group.security-group-db}"
 }
+
+output "zone-id" {
+  value = "${module.route-53.zone-id}"
+}
