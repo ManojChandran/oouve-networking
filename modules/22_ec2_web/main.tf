@@ -13,6 +13,8 @@
 #--------------------------------------------------------------------------
 #-------------variable section----------------------
 variable "public-subnet-ids" {}
+variable "web-ami" {}
+variable "web-instance-type" {}
 
 #-------------data section--------------------------
 # get availability zone from specified AWS region
@@ -26,23 +28,9 @@ resource "random_shuffle" "web_az" {
 }
 
 resource "aws_instance" "web" {
-    ami           = "ami-04505e74c0741db8d"
-    instance_type = "t3.micro"
+    ami           = "${var.web-ami}"
+    instance_type = "${var.web-instance-type}"
     key_name 		= "demo-key"
-    provisioner "remote-exec" {
-      inline = [
-        "sudo apt-get update",
-        "sudo apt-get install apache2 -y",
-        "sudo systemctl start apache2",
-      ]
-  
-    }
-    connection {
-      type     = "ssh"
-      user     = "ubuntu"
-#      private_key = file("demokey.pem")
-      host     = "${self.public_ip}"
-    }
   
     tags = {
       Name = "oouve-web-server"

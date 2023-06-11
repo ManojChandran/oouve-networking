@@ -109,4 +109,6 @@ module "route-53" {
 module "ec2-web" {
   source = "./modules/22_ec2_web" 
   public-subnet-ids = "${module.public-subnet.public-subnet-ids}"
+  web-ami = "${var.web-ami}"
+  web-instance-type = "${var.web-instance-type}"
 }

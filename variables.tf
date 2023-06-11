@@ -98,3 +98,13 @@ variable "domain-name" {
   description = "store public domain name you purchased"
   default = "oouve.com"
 }
+
+variable "web-ami" {
+  description = "ami"
+  default = "ami-04505e74c0741db8d"
+}
+
+variable "web-instance-type" {
+  description = "ec2 instance type"
+  default = "t2.micro"
+}
