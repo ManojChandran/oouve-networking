@@ -19,7 +19,7 @@ variable "public-subnet-ids" {}
 #-------------control section-----------------------
 resource "aws_eip" "oouve-nat-ip" {
   count    = "${length(var.public-subnet-ids)}"
-  vpc      = true
+  domain = "vpc"
 
   tags = {
     "Name" = "oouve-nat-eip"

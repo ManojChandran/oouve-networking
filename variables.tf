@@ -22,7 +22,7 @@ variable "aws-region" {
 
 variable "vpc-cidr" {
   description = "stores ip cidr for the VPC"
-  default = "10.0.0.0/26"
+  default = "10.0.0.0/24"
 }
 variable "vpc-id" {
   description = "store vpc id"
@@ -39,18 +39,18 @@ variable "default-route-table-id" {
 variable "vpc-public-cidrs" {
   description = "stores list of public subnet IP's"
   type        = list(string)
-  default = ["10.0.0.0/24", "10.0.0.10/24"]
+  default = ["10.0.0.0/27", "10.0.0.32/27"]
 }
 variable "vpc-private-cidrs" {
   description = "stores list of private subnet IP's"
   type        = list(string)
-  default = ["10.0.0.20/24", "10.0.0.30/24"]
+  default = ["10.0.0.64/27", "10.0.0.96/27"]
 }
 variable "vpc-db-cidrs" {
   description = "stores list of database subnet IP's"
   type        = list(string)
-  default = ["10.0.0.40/24", "10.0.0.60/24"]
-
+  default = ["10.0.0.128/27", "10.0.0.160/27"]
+}
 variable "public-subnet-ids" {
   description = "stores list of subnet ids"
   type        = list(string)

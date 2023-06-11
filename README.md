@@ -70,13 +70,50 @@ $ terraform apply
 
 # Configuring your infrastructure
 
-## Set your CIDR
+## Set up VPCs
+Don't use the Default VPC, as everything in it is publicly accessible by default. Instead, create one or more custom Virtual Private Clouds (VPC), each with their own IP address range (see VPC and subnet sizing), and deploy all of your apps into those VPCs.
+
+## Set up subnets
+Create three "tiers" of subnets in each VPC: public, private-app, private-persistence. The public subnets are directly accessible from the public Internet and should only be used for a small number of highly locked down, user-facing services, such as load balancers and Bastion Hosts. The private-apps subnets are only accessible from within the VPC from the public subnets and should be used to run your apps (Auto Scaling Groups, Docker containers, etc.). The private-persistence subnets are also only accessible from within the VPC from the private-app subnets (but NOT the public subnets) and should be used to run all your data stores (RDS, ElastiCache, etc.). See A Reference VPC Architecture.
+
+### Set your CIDR
+CIDR (Classless Inter-Domain Routing) notation is used to represent and manage IP address blocks more efficiently. 
+To accommodate 200+ IP addresses and create 6 subnets in an AWS VPC (Virtual Private Cloud), we can use the following CIDR notation and IP range configuration:
+
+Determine the required number of IP addresses: Let's assume you need a minimum of 200 IP addresses. To calculate the number of IP addresses required, you can use the formula 2^(32 - n) - 2, where 'n' represents the number of bits borrowed from the original CIDR block for subnetting. In this case, we'll start with 'n' as 8 to create 6 subnets.
+
+Determine the subnet mask and CIDR notation: Since we need 6 subnets, we'll borrow 3 bits (2^3 = 8) from the original CIDR block. The subnet mask for the subnets will be 255.255.255.224 (/27 CIDR notation) to accommodate 32 IP addresses per subnet (30 usable IPs per subnet).
+
+Calculate the IP ranges for each subnet: Starting with the base CIDR block, which we'll assume as 10.0.0.0/24, we'll divide it into 6 subnets with the /27 subnet mask:
+
+Subnet 1: 10.0.0.0/27 (IP Range: 10.0.0.0 - 10.0.0.31)
+Subnet 2: 10.0.0.32/27 (IP Range: 10.0.0.32 - 10.0.0.63)
+Subnet 3: 10.0.0.64/27 (IP Range: 10.0.0.64 - 10.0.0.95)
+Subnet 4: 10.0.0.96/27 (IP Range: 10.0.0.96 - 10.0.0.127)
+Subnet 5: 10.0.0.128/27 (IP Range: 10.0.0.128 - 10.0.0.159)
+Subnet 6: 10.0.0.160/27 (IP Range: 10.0.0.160 - 10.0.0.191)
+Allocate the IP ranges to your VPC subnets: In the AWS VPC management console, you can create 6 subnets with the specified CIDR blocks and assign them to your desired availability zones.
 
 Open "variables.tf" and update CIDR.
 ```go
 variable "vpc-cidr" {
   description = "stores ip cidr for the VPC"
-  default = "10.0.0.0/26"
+  default = "10.0.0.0/24"
+}
+variable "vpc-public-cidrs" {
+  description = "stores list of public subnet IP's"
+  type        = list(string)
+  default = ["10.0.0.0/27", "10.0.0.32/27"]
+}
+variable "vpc-private-cidrs" {
+  description = "stores list of private subnet IP's"
+  type        = list(string)
+  default = ["10.0.0.64/27", "10.0.0.96/27"]
+}
+variable "vpc-db-cidrs" {
+  description = "stores list of database subnet IP's"
+  type        = list(string)
+  default = ["10.0.0.128/27", "10.0.0.160/27"]
 }
 ```
 ## Set your Domain
@@ -88,16 +125,6 @@ variable "domain-name" {
   default = "oouve.com"
 }
 ```
-
-# Checklist of items to have production ready Networking
-
-> This repository tries to follow the checklist items formulated by gruntworks to have a production ready infrastructure, reference provided at the end.
-
-## Set up VPCs
-Don't use the Default VPC, as everything in it is publicly accessible by default. Instead, create one or more custom Virtual Private Clouds (VPC), each with their own IP address range (see VPC and subnet sizing), and deploy all of your apps into those VPCs.
-
-## Set up subnets
-Create three "tiers" of subnets in each VPC: public, private-app, private-persistence. The public subnets are directly accessible from the public Internet and should only be used for a small number of highly locked down, user-facing services, such as load balancers and Bastion Hosts. The private-apps subnets are only accessible from within the VPC from the public subnets and should be used to run your apps (Auto Scaling Groups, Docker containers, etc.). The private-persistence subnets are also only accessible from within the VPC from the private-app subnets (but NOT the public subnets) and should be used to run all your data stores (RDS, ElastiCache, etc.). See A Reference VPC Architecture.
 
 ## Configure Network ACLs
 Create Network Access Control Lists (NACLs) to control what traffic can go between different subnets. We recommend allowing the public subnets to receive traffic from anywhere, the private-app subnets to only receive traffic from the public subnets, and the private-persistence subnets to only receive traffic from the private-app subnets.
@@ -115,3 +142,4 @@ Manage DNS entries using Route 53. You can buy public domain names using the Rou
 
 Link 1 : https://www.gruntwork.io/devops-checklist/</br>
 Link 2 : https://learn.hashicorp.com/tutorials/terraform/install-cli</br>
+Link 3 : https://cidr.xyz/</br>
