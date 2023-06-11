@@ -38,9 +38,6 @@ resource "aws_subnet" "oouve-pub-subnet" {
   cidr_block        = "${var.vpc-public-cidrs[count.index]}"
   availability_zone = "${data.aws_availability_zones.available.names[count.index]}"
 
-  tags = {
-    Name = "oouve-pub-subnet"
-  }
 }
 
 # Associating public subnet route table

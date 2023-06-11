@@ -20,6 +20,40 @@ variable "vpc-id" {}
 #data "aws_availability_zones" "available" {}
 
 #-------------control section-----------------------
+resource "aws_security_group" "web-sg" {
+  name        = "webserver-sg"
+  description = "Security group"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+}
 # create Security group for load balancer
 resource "aws_security_group" "oouve-sg-lb-pub" {
   name        = "oouve-sg-lb-pub"
@@ -60,11 +94,34 @@ resource "aws_security_group" "oouve-sg-pub" {
   description = "Allow TLS inbound traffic"
   vpc_id      = "${var.vpc-id}"
 
-#  ingress {
-#  }
-#
-#  egress {
-#  }
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 
   tags = {
     Name = "oouve-sg-pub"

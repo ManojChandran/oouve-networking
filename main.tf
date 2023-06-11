@@ -104,3 +104,9 @@ module "route-53" {
   source             = "./modules/20_route_53"
   domain-name = "${var.domain-name}"
 }
+
+# Deploy Web server
+module "ec2-web" {
+  source = "./modules/22_ec2_web" 
+  public-subnet-ids = "${module.public-subnet.public-subnet-ids}"
+}
