@@ -86,12 +86,12 @@ Determine the subnet mask and CIDR notation: Since we need 6 subnets, we'll borr
 
 Calculate the IP ranges for each subnet: Starting with the base CIDR block, which we'll assume as 10.0.0.0/24, we'll divide it into 6 subnets with the /27 subnet mask:
 
-Subnet 1: 10.0.0.0/27 (IP Range: 10.0.0.0 - 10.0.0.31)
-Subnet 2: 10.0.0.32/27 (IP Range: 10.0.0.32 - 10.0.0.63)
-Subnet 3: 10.0.0.64/27 (IP Range: 10.0.0.64 - 10.0.0.95)
-Subnet 4: 10.0.0.96/27 (IP Range: 10.0.0.96 - 10.0.0.127)
-Subnet 5: 10.0.0.128/27 (IP Range: 10.0.0.128 - 10.0.0.159)
-Subnet 6: 10.0.0.160/27 (IP Range: 10.0.0.160 - 10.0.0.191)
+Subnet 1: 10.0.0.0/27 (IP Range: 10.0.0.0 - 10.0.0.31) </br>
+Subnet 2: 10.0.0.32/27 (IP Range: 10.0.0.32 - 10.0.0.63)</br>
+Subnet 3: 10.0.0.64/27 (IP Range: 10.0.0.64 - 10.0.0.95)</br>
+Subnet 4: 10.0.0.96/27 (IP Range: 10.0.0.96 - 10.0.0.127)</br>
+Subnet 5: 10.0.0.128/27 (IP Range: 10.0.0.128 - 10.0.0.159)</br>
+Subnet 6: 10.0.0.160/27 (IP Range: 10.0.0.160 - 10.0.0.191)</br>
 Allocate the IP ranges to your VPC subnets: In the AWS VPC management console, you can create 6 subnets with the specified CIDR blocks and assign them to your desired availability zones.
 
 Open "variables.tf" and update CIDR.
