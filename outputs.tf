@@ -94,3 +94,6 @@ output "zone-id" {
 output "web-ec2" {
   value = module.ec2-web.web-ec2-instance-id
 }
+output "web-asg" {
+  value = module.asg-web.web-asg-id
+}

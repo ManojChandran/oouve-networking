@@ -110,6 +110,8 @@ module "asg-web" {
   source            = "./modules/21_asg_web"
   web-ami           = var.web-ami
   web-instance-type = var.web-instance-type
+  public-subnet-ids = module.public-subnet.public-subnet-ids
+  public-lb-id      = module.lb-public.public-lb-id
 }
 
 # Deploy Web server

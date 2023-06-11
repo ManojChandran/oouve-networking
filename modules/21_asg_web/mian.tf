@@ -14,6 +14,8 @@
 #-------------variable section----------------------
 variable "web-ami" {}
 variable "web-instance-type" {}
+variable "public-subnet-ids" {}
+variable "public-lb-id" {}
 #-------------data section--------------------------
 
 #-------------control section-----------------------
@@ -27,12 +29,32 @@ resource "aws_autoscaling_group" "web-asg" {
   launch_configuration = "${aws_launch_configuration.web-lc.id}"
   health_check_grace_period = 300
   health_check_type         = "ELB"
-  desired_capacity          = 4
+  desired_capacity          = 3
   force_delete              = true
   max_size = 5
-  min_size = 2  
+  min_size = 2
+  vpc_zone_identifier = var.public-subnet-ids 
+}
+
+resource "aws_autoscaling_policy" "web-scale-up" {
+  name = "oouve-web-scale-up"
+  scaling_adjustment = 1
+  adjustment_type = "ChangeInCapacity"
+  cooldown = 300
+  autoscaling_group_name = "${aws_autoscaling_group.web-asg.name}"
+}
+
+resource "aws_autoscaling_policy" "web-scale-down" {
+  name = "oouve-web-scale-down"
+  scaling_adjustment = -1
+  adjustment_type = "ChangeInCapacity"
+  cooldown = 300
+  autoscaling_group_name = "${aws_autoscaling_group.web-asg.name}"
 }
 #-------------output section------------------------
 output "web-lc" {
   value = "${aws_launch_configuration.web-lc.id}"
+}
+output "web-asg-id" {
+  value = "${aws_autoscaling_group.web-asg.id}"
 }
