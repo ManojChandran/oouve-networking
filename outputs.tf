@@ -90,3 +90,7 @@ output "security-group-db" {
 output "zone-id" {
   value = "${module.route-53.zone-id}"
 }
+
+output "web-ec2" {
+  value = "${module.ec2-web.web-ec2-instance-id}"
+}
