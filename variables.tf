@@ -13,7 +13,7 @@
 #--------------------------------------------------------------------------
 variable "aws-region" {
   description = "stored aws region data(N. Virginia)"
-  default = "us-east-1"
+  default     = "us-east-1"
 }
 
 #variable "env" {
@@ -22,34 +22,34 @@ variable "aws-region" {
 
 variable "vpc-cidr" {
   description = "stores ip cidr for the VPC"
-  default = "10.0.0.0/24"
+  default     = "10.0.0.0/24"
 }
 variable "vpc-id" {
   description = "store vpc id"
-  default = "myvpc"
+  default     = "myvpc"
 }
 variable "igw-id" {
   description = "stores igw id"
-  default = "myigw"
+  default     = "myigw"
 }
 variable "default-route-table-id" {
   description = "stores default route table of VPC"
-  default = " "
+  default     = " "
 }
 variable "vpc-public-cidrs" {
   description = "stores list of public subnet IP's"
   type        = list(string)
-  default = ["10.0.0.0/27", "10.0.0.32/27"]
+  default     = ["10.0.0.0/27", "10.0.0.32/27"]
 }
 variable "vpc-private-cidrs" {
   description = "stores list of private subnet IP's"
   type        = list(string)
-  default = ["10.0.0.64/27", "10.0.0.96/27"]
+  default     = ["10.0.0.64/27", "10.0.0.96/27"]
 }
 variable "vpc-db-cidrs" {
   description = "stores list of database subnet IP's"
   type        = list(string)
-  default = ["10.0.0.128/27", "10.0.0.160/27"]
+  default     = ["10.0.0.128/27", "10.0.0.160/27"]
 }
 variable "public-subnet-ids" {
   description = "stores list of subnet ids"
@@ -71,40 +71,40 @@ variable "public-eip-ids" {
 
 variable "sg-public-lb-id" {
   description = "stores security group id"
-  default = " "
+  default     = " "
 }
 
 variable "sg-private-lb-id" {
   description = "stores security group id"
-  default = " "
+  default     = " "
 }
 
 variable "sg-public-subnet-id" {
   description = "stores security group id"
-  default = " "
+  default     = " "
 }
 
 variable "sg-private-subnet-id" {
   description = "stores security group id"
-  default = " "
+  default     = " "
 }
 
 variable "sg-database-id" {
   description = "stores security group id"
-  default = " "
+  default     = " "
 }
 
 variable "domain-name" {
   description = "store public domain name you purchased"
-  default = "oouve.com"
+  default     = "oouve.com"
 }
 
 variable "web-ami" {
   description = "ami"
-  default = "ami-04505e74c0741db8d"
+  default     = "ami-04505e74c0741db8d"
 }
 
 variable "web-instance-type" {
   description = "ec2 instance type"
-  default = "t2.micro"
+  default     = "t2.micro"
 }
