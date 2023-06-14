@@ -51,6 +51,12 @@ resource "aws_autoscaling_policy" "web-scale-down" {
   cooldown = 300
   autoscaling_group_name = "${aws_autoscaling_group.web-asg.name}"
 }
+
+resource "aws_autoscaling_attachment" "web-lb-attach" {
+  autoscaling_group_name = "${aws_autoscaling_group.web-asg.id}"
+  lb = var.public-lb-id
+}
+
 #-------------output section------------------------
 output "web-lc" {
   value = "${aws_launch_configuration.web-lc.id}"
