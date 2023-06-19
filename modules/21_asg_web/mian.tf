@@ -15,18 +15,32 @@
 variable "web-ami" {}
 variable "web-instance-type" {}
 variable "public-subnet-ids" {}
-variable "public-lb-id" {}
+//variable "public-lb-id" {}
 #-------------data section--------------------------
 
 #-------------control section-----------------------
-resource "aws_launch_configuration" "web-lc" {
-  name = "oouve-web-lc"
+
+resource "aws_launch_template" "web-tf" {
+  name = "oouve-web-tf"
   image_id = var.web-ami
-  instance_type = var.web-instance-type
+  instance_type = var.web-instance-type  
+
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 1
+    instance_metadata_tags      = "enabled"
+  }
+
+  tags = {
+    Name = "oouve-web-server"
+  }
 }
 
 resource "aws_autoscaling_group" "web-asg" {
-  launch_configuration = "${aws_launch_configuration.web-lc.id}"
+  launch_template{
+    id = "${aws_launch_template.web-tf.id}"
+  }
   health_check_grace_period = 300
   health_check_type         = "ELB"
   desired_capacity          = 3
@@ -34,6 +48,12 @@ resource "aws_autoscaling_group" "web-asg" {
   max_size = 5
   min_size = 2
   vpc_zone_identifier = var.public-subnet-ids 
+
+  tag {
+    key                 = "Name"
+    value               = "bar"
+    propagate_at_launch = true
+  }
 }
 
 resource "aws_autoscaling_policy" "web-scale-up" {
@@ -52,14 +72,9 @@ resource "aws_autoscaling_policy" "web-scale-down" {
   autoscaling_group_name = "${aws_autoscaling_group.web-asg.name}"
 }
 
-resource "aws_autoscaling_attachment" "web-lb-attach" {
-  autoscaling_group_name = "${aws_autoscaling_group.web-asg.id}"
-  lb = var.public-lb-id
-}
-
 #-------------output section------------------------
 output "web-lc" {
-  value = "${aws_launch_configuration.web-lc.id}"
+  value = "${aws_launch_template.web-tf.id}"
 }
 output "web-asg-id" {
   value = "${aws_autoscaling_group.web-asg.id}"

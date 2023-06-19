@@ -111,13 +111,5 @@ module "asg-web" {
   web-ami           = var.web-ami
   web-instance-type = var.web-instance-type
   public-subnet-ids = module.public-subnet.public-subnet-ids
-  public-lb-id      = module.lb-public.public-lb-id
-}
-
-# Deploy Web server
-module "ec2-web" {
-  source            = "./modules/22_ec2_web"
-  public-subnet-ids = module.public-subnet.public-subnet-ids
-  web-ami           = var.web-ami
-  web-instance-type = var.web-instance-type
+//  public-lb-id      = module.lb-public.public-lb-id
 }
