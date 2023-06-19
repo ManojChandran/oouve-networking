@@ -15,6 +15,7 @@
 variable "web-ami" {}
 variable "web-instance-type" {}
 variable "public-subnet-ids" {}
+variable "sg-public-id" {}
 //variable "public-lb-id" {}
 #-------------data section--------------------------
 
@@ -23,7 +24,8 @@ variable "public-subnet-ids" {}
 resource "aws_launch_template" "web-tf" {
   name = "oouve-web-tf"
   image_id = var.web-ami
-  instance_type = var.web-instance-type  
+  instance_type = var.web-instance-type 
+  vpc_security_group_ids = [var.sg-public-id] 
 
   metadata_options {
     http_endpoint               = "enabled"
@@ -51,7 +53,7 @@ resource "aws_autoscaling_group" "web-asg" {
 
   tag {
     key                 = "Name"
-    value               = "bar"
+    value               = "oouve-web-server"
     propagate_at_launch = true
   }
 }
