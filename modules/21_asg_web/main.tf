@@ -16,7 +16,8 @@ variable "web-ami" {}
 variable "web-instance-type" {}
 variable "public-subnet-ids" {}
 variable "sg-public-id" {}
-//variable "public-lb-id" {}
+variable "public-lb-id" {}
+variable "pub-target-grp" {}
 #-------------data section--------------------------
 
 #-------------control section-----------------------
@@ -66,6 +67,24 @@ resource "aws_autoscaling_policy" "web-scale-up" {
   autoscaling_group_name = "${aws_autoscaling_group.web-asg.name}"
 }
 
+resource "aws_cloudwatch_metric_alarm" "web-scale-up-alarm" {
+  alarm_name                = "oouve-web-scale-up-alarm"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = 2
+  metric_name               = "CPUUtilization"
+  namespace                 = "AWS/EC2"
+  period                    = 120
+  statistic                 = "Average"
+  threshold                 = 80
+  alarm_description         = "This metric monitors ec2 cpu utilization"
+  insufficient_data_actions = []
+  dimensions = {
+    AutoScalingGroupName = aws_autoscaling_group.web-asg.name
+  }
+
+  alarm_actions     = [aws_autoscaling_policy.web-scale-up.arn]
+}
+
 resource "aws_autoscaling_policy" "web-scale-down" {
   name = "oouve-web-scale-down"
   scaling_adjustment = -1
@@ -74,6 +93,28 @@ resource "aws_autoscaling_policy" "web-scale-down" {
   autoscaling_group_name = "${aws_autoscaling_group.web-asg.name}"
 }
 
+resource "aws_cloudwatch_metric_alarm" "web-scale-down-alarm" {
+  alarm_name                = "terraform-test-foobar5"
+  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  evaluation_periods        = 5
+  metric_name               = "CPUUtilization"
+  namespace                 = "AWS/EC2"
+  period                    = 120
+  statistic                 = "Average"
+  threshold                 = 30
+  alarm_description         = "This metric monitors ec2 cpu utilization"
+  insufficient_data_actions = []
+  dimensions = {
+    AutoScalingGroupName = aws_autoscaling_group.web-asg.name
+  }
+
+  alarm_actions     = [aws_autoscaling_policy.web-scale-down.arn]
+}
+
+resource "aws_autoscaling_attachment" "oouve-web-attach" {
+  autoscaling_group_name = aws_autoscaling_group.web-asg.id
+  lb_target_group_arn = var.pub-target-grp
+}
 #-------------output section------------------------
 output "web-lc" {
   value = "${aws_launch_template.web-tf.id}"

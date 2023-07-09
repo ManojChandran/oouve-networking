@@ -88,6 +88,7 @@ module "network-acl" {
 # Deploy LB public
 module "lb-public" {
   source            = "./modules/17_lb_public"
+  vpc-id            = module.vpc-igw.vpc-id
   public-subnet-ids = module.public-subnet.public-subnet-ids
   sg-public-lb-id   = module.security-group.security-group-lb-pub
 }
@@ -111,5 +112,7 @@ module "asg-web" {
   web-ami           = var.web-ami
   web-instance-type = var.web-instance-type
   public-subnet-ids = module.public-subnet.public-subnet-ids
-//  public-lb-id      = module.lb-public.public-lb-id
+  public-lb-id      = module.lb-public.public-lb-id
+  sg-public-id      = module.security-group.security-group-pub
+  pub-target-grp    = module.lb-public.public-lb-trget-grp
 }

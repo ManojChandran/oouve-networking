@@ -12,6 +12,7 @@
 # limitations under the License.
 #--------------------------------------------------------------------------
 #-------------variable section----------------------
+variable "vpc-id" {}
 variable "public-subnet-ids" {}
 variable "sg-public-lb-id" {}
 
@@ -49,7 +50,71 @@ resource "aws_lb" "oouve-pub-lb" {
     Environment = "oouve-pub-lb"
   }
 }
+
+resource "aws_lb_target_group" "pub-target-grp" {
+  name        = "oouve-pub-target-grp"
+  port        = 9000
+  protocol    = "HTTP"
+  target_type = "instance"
+  vpc_id      = "${var.vpc-id}"
+
+  stickiness {
+    type            = "lb_cookie"
+    cookie_duration =  1800
+    enabled         = false
+  }
+
+  health_check{
+    interval     = 30
+    path         = "/"
+    port         = 9000
+    healthy_threshold =  5
+    unhealthy_threshold = 2
+    timeout = 5
+    protocol = "HTTP"
+    matcher = "200,202"
+  }
+
+  tags = {
+    Environment = "oouve-pub-trgget"
+  }
+
+}
+
+#resource "aws_lb_listener" "oouve-https-listner" {
+#  load_balancer_arn = aws_lb.oouve-pub-lb.arn
+#  port = "443"
+#  protocol = "HTTPS"
+#  certificate_arn = ""
+#
+#  default_action {
+#    type = "forward"
+#    target_group_arn = aws_lb_target_group.pub-target-grp.arn
+#  }
+#}
+
+resource "aws_lb_listener" "oouve-http-listner" {
+  load_balancer_arn = aws_lb.oouve-pub-lb.arn
+  port = "80"
+  protocol = "HTTP"
+
+  default_action {
+    type = "forward"
+    target_group_arn = aws_lb_target_group.pub-target-grp.arn
+  }
+#  default_action {
+#    type = "redirect"
+#    redirect {
+#      port = "443"
+#      protocol = "HTTPS"
+#      status_code = "HTTP_301"
+#    }
+#  }
+}
 #-------------output section------------------------
 output "public-lb-id" {
   value = "${aws_lb.oouve-pub-lb.id}"
+}
+output "public-lb-trget-grp" {
+  value = "${aws_lb_target_group.pub-target-grp.arn}"
 }
